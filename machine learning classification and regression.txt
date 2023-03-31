@@ -1,0 +1,121 @@
+machine learning:
+there are two types of machine learning:
+1-supervised learning:the most common use in 99 percent of machine learning.mapping input x to output y and learns from given right answers
+regression algorithm: first takes any input data numbers and predict infinitely large output numbers 
+classification algorithm: it takes the input data and convert it to classes and categories and may be the categories non numeric and makes small limits of output.
+
+2- unsupervised learning: it finds something intersting in labeled input data and non labeled output
+clustering algorithm: take the sampled data and grouped them in differnet clusters and turns out in some applications
+anomaly detection: it is used to find unusual data points
+dimensionality reduction: it is used to compress data into fewer numbers
+
+jupyter notebook: it is the most widely used tool by machine learning and data science users today
+ 
+linear regression model: it is a supervised learning algorithm that take a linear slope of the data inputs on the graph and predicts the outputs
+operation: the training sets are passed to learning algorithm which makes a function that if we pass input (x) to this function(model) it will predict the output (y^)
+how to represent a function of linear regression model: as it is linear we can determine f(x) by equation of the straight line=slope*x+c
+why we use linear not non linear? as the linear is the simplest way to get the slope
+note: the true output is (y) and the predicted output is f(w,b) or (y^)=w*x+b (equation of straight line)
+
+cost function:(the squared error cost function) it is the most common function to calculate the error.
+let m = the number of examples(points)
+it is calculated by 1/2m *sigma from 1 to m in the function: squaring the (y^-y)
+simplified model of cost function:y^=w*x(b=0) 
+Note: By using the simpllified model the cost function will be quadratic function we can take the least cost fuction from it.
+	By using the normal equation of straight line the cost function will be like a bowl in 3d graph
+visualizing examples: in the normal equation in a 2d graph(w,b) it will be drawn ovals.
+we can get the least cost function from the graph by taking the center of least oval.
+
+Gradient descent algorithm: it is the most algorithm used to determine the cost function in machine learning to get the least error in tne machine.
+sometimes the function is not the equation of straight line so, this algorithm we keep change w and b untill we find minimum value.
+Note: There is more than one point have the minimum value.
+equations: w=w-alpha*(derivative of the cost fuction with respect to w)
+	     b=b-alpha*(derivative of the cost fuction with respect to b)
+alpha :it is the learning rate which is a small number between zero and 1.
+We continue substituting in the equations untill we reach local minimum value.
+Note: we compute the two equations simultaneously and we substitute the old w and b with the new one after substituting in the two equations first.
+choosing alpha properly:
+if we choose a very small alpha it will get the minimum value after long time which make the algorithm very slow.
+On the other side if we choose a very large value of alpha we will never get the minimum value.
+Note: To get the local minimum correctly when the derivative of the function with the new value equal zero.
+For linear regression model:w=w-alpha*(1/m *sigma from 1 to m in the function (y^-y)*x(i))
+				    b=b-alpha*(1/2m *sigma from 1 to m in the function (y^-y))
+
+Multiple variables of linear regresssion model:
+equation: f(w,b)= w1x1+w2x2+w3x3+...+b
+we make two vectors w`and x`to store the variables of w and x ,so, f(w,b)=w`.x`+b
+vectorization: it makes ur code shorter and increase its efficiency.
+we store x` and v` in python using library NumPy for example:x=np.array([1,3,5])
+3 ways to write equation in code: 1- write the long equation by distributing the sigma which is the worse way
+2- use for loop -> for j in range (0,n)
+				  sum=sum+x[i]*w[i]
+			 f=f+b
+3- use the function np.dot() which makes the dot product function and it is the most efficient way espicially when n is a large number.
+		ex:f=np.dot(w,x)+b;
+it is the most efficient way as the dot product makes the multiplication in parallel
+gradient descent in multiple features: 
+we make a vector d which store the derivatives of function every time
+with vectorization we can write as it is simple equation w=w-alpha*d as the numpy arrays will make each index value with each other.
+
+normal equation algorithm: it is only used in linear regression method and solve w and b  without iterations
+disadvantages: it can't be use in any other alogoritms and slow when the number of features are large
+
+feature scaling in gradient descent: 
+we rescale the size of x[i] and w[i] to run faster by making small value of w with big value of x or vice versa to take comparable ranges of values
+The feature scaling:it aims for about -1<= x scaled <= 1 for each feature or makes the lower number and bigger number small but not too small   
+ (min/max)<=x scaled / max <=1
+Mean normalization: x(sacled)=(x-average)/(max-min)
+Z-score normalization: x(scaled)=(x-average)/standarad deviation
+Note: to make sure that the gradient scaling works correctly the cost function must increase after each iteration.
+automatic convergence test:when the change of one iteration is less than 0.001 it means that it reaches the minimum cost
+
+Feature engineering:
+using intuition to design new features by transforming or combining original features in order to make it easier for the learning algorithm to make accurate predictions
+ex: w1*length+w2*width+b, and area =length*width so, we can make the function more accurate by w1*length+w2*width+area*w3+b
+
+Polynomial regression:we took the optional features (x) and increase the power of it to make an accurate curve like: w1x+w2x**2+w3x**3+b(third degree)
+Note:by increasing the degree of x the feature scaling become more important to make the gradient descent more accurate and fast
+
+Binary classification algorithm: it has two categories(classes) which is 1 or 0 (true or false) (positive or negative)
+Note: We can use linear regression in the binary classification.
+Logistic regression: It is the most widely used classification algorithm in the world.it takes results by using sigmoid function
+sigmoid function: it is a s shaped curve and its equation = 1/(1+exp(-x)) and its range between 0 and 1
+logistic regresion equation: let z=w*x+b -->  1/(1+exp(-z))
+Note: the output of the logistic regression is the probabiblity of the input between 0 and 1
+Decision boundary: it is the prediction of 0 on 1 based on if(w*x+b) is greater than or equal zero.
+Note: to get the decision boundary let the equation of the machine is equal to zero and then get the equation if the boundary
+Note: The threshold value of the probability mustn't exceed 0.5
+logistic loss function: the squared error cost is not ideal to calculate the logistic cost we insted use the logarismic function
+if the real output is 1: the equation is -log(f_wb)
+if the real output is 0: the equation is -log(1-f_wb)
+so,The loss function=-y[i]*log(f_wb)-(1-y[i])*log(1-f_wb)
+Cost function of logistic regression= -1/m sigma from 1 to m the function (y[i]*log(f_wb)+(1-y[i])*log(1-f_wb))
+Gradient descent in logistic regression: it has the same rules of linear regression:
+ 	    w=w-alpha*(1/m *sigma from 1 to m in the function: squaring the (f_wb-y)*x(i))
+	    b=b-alpha*(1/m *sigma from 1 to m in the function: squaring the (f_wb-y))
+Note: we can't say that the logisitc regression is secretly similar to the linear regression as they have the same gradient descent equations?
+	Because, they have different functions as the function of linear regression is linear but the function in logistic regression is exponential
+Note: it has the same concepts of learning curve and vectorization and feature scaling
+
+Overfitting problem:Sometimes in an application, the algorithm can run into a problem called overfitting, which can cause it to perform poorly.
+It fits the training set extremely well which makes high variance that can't take any new tests or if we change anything in the input it will make different output.
+Regularization method:it will help you minimize this overfitting problem and get your learning algorithms to work much better.
+
+Underfitting problem: it is a problem when your algorithm doesn't fit the training set well.
+Also,It has high bias which means that that it's just not even able to fit the training set that well.There's a clear pattern in the training data that the algorithm is just unable to capture.
+Note: the engineer try to build a model that doesn't have high bias nor high variance (overfiting and underfitting).
+
+Addressing overfiting: first option: we can know the problem of overfitting by collecting more training examples but sometimes we can't collect more data.
+			     second option: by decreasing the features in the model. (feature selection)
+third option: Regularization:they just prevent the features from having an overly large effect by smalling the parameter, which can cause overfitting.
+Note:to know what feature is important or not we shrink all of them by adding anew term in the cost funtion.
+Rule: 1/2m *sigma from 1 to m in the function: squaring the (y^-y) + (lamda/2m)*sigma from 1 to no.of features (w**2)
+Note:lamda is the regularization parameter and if it is equal to zero or very small number it will underfit and if it is a very large number it will overfit
+So, it is too important to balance the lamda not by making it not too small and not too large.
+Note: increasing lamda will tend to decrease the size of the parameters.
+Using regularization in gradient descent rule:w=w-alpha*(lamda/m)w[i])-alpha*(1/m *sigma from 1 to m ((y^-y)*x[i]).
+Note:we don't have to regularize b in this course.
+Regularization in in logistic regression:w=w+(lamda/m)*w-1/m sigma from 1 to m (y[i]*log(f_wb)-(1-y[i])*log(1-f_wb))
+
+
+
